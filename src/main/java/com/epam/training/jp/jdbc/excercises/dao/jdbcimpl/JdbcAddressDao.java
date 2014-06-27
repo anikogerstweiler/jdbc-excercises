@@ -21,7 +21,7 @@ public class JdbcAddressDao extends GenericJdbcDao implements AddressDao {
 	public void save(Address address) {
 		String sql = "INSERT INTO address (CITY, COUNTRY, STREET, ZIPCODE) VALUES (?, ?, ?, ?)";
 		try (Connection conn = dataSource.getConnection();
-				PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+			PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 			ps.setString(1, address.getCity());
 			ps.setString(2, address.getCountry());
 			ps.setString(3, address.getStreet());

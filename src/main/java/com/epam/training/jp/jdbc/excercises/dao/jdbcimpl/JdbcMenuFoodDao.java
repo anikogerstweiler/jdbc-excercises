@@ -1,5 +1,9 @@
 package com.epam.training.jp.jdbc.excercises.dao.jdbcimpl;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 import javax.sql.DataSource;
 
 import com.epam.training.jp.jdbc.excercises.dao.MenuFoodDao;
@@ -12,7 +16,15 @@ public class JdbcMenuFoodDao extends GenericJdbcDao implements MenuFoodDao {
 
 	@Override
 	public void removeMenuFoods(int menuId) {
-		//TODO: implement
-		throw new UnsupportedOperationException();
+		String sql = "DELETE FROM MENU_FOOD WHERE MENU_ID = ?";
+		try (Connection conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setInt(1, menuId);
+			
+			ps.execute();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
