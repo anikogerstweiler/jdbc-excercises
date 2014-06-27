@@ -21,9 +21,8 @@ public class JdbcTemplateFoodDao extends JdbcDaoSupport implements FoodDao {
 
 	@Override
 	public Food findFoodByName(String name) {
-		Food food = this.getJdbcTemplate().queryForObject(
-		          "SELECT ID, CALORIES, ISVEGAN, NAME, PRICE from FOOD WHERE NAME = ?",
-		          new String[]{name},
+		String sql_query = "SELECT ID, CALORIES, ISVEGAN, NAME, PRICE from FOOD WHERE NAME = ?";
+		Food food = this.getJdbcTemplate().queryForObject(sql_query, new String[]{name},
 		          new RowMapper<Food>() {
 		              public Food mapRow(ResultSet rs, int rowNum) throws SQLException {
 		                  Food food = new Food();
@@ -36,7 +35,8 @@ public class JdbcTemplateFoodDao extends JdbcDaoSupport implements FoodDao {
 		                  return food;
 		              }
 		          });
-		  return food;
+		
+		return food;
 	}
 
 	@Override
@@ -56,8 +56,27 @@ public class JdbcTemplateFoodDao extends JdbcDaoSupport implements FoodDao {
 			batch.add(values);
 		}
 		
-		int[] count = this.getJdbcTemplate().
+		this.getJdbcTemplate().
 				batchUpdate("INSERT INTO food (calories, isvegan, name, price) VALUES (?, ?, ?, ?)", batch);
 		
+	}
+
+	@Override
+	public List<Food> getFoods() {
+		String sql = "select * from food";
+		
+		return this.getJdbcTemplate().query(sql, new RowMapper<Food>() {
+			@Override
+			public Food mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Food food = new Food();
+				food.setId(rs.getInt(1));
+				food.setCalories(rs.getInt(1));
+				food.setVegan(rs.getBoolean(3));
+				food.setName(rs.getString(4));
+				food.setPrice(rs.getInt(5));
+				
+				return food;
+			}
+		});
 	}
 }

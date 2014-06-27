@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.epam.training.jp.jdbc.excercises.domain.Food;
 
-
 public interface FoodDao {
 
 	Food findFoodByName(String name);
@@ -12,4 +11,6 @@ public interface FoodDao {
 	void updateFoodPriceByName(String name, int newPrice);	
 
 	void save(List<Food> foods);
+	
+	List<Food> getFoods();
 }

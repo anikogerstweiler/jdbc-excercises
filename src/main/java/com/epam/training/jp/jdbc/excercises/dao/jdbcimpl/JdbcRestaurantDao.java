@@ -60,7 +60,7 @@ public class JdbcRestaurantDao extends GenericJdbcDao implements RestaurantDao {
 
 	@Override
 	public List<RestaurantWithAddress> getAllRestaurantsWithAddress() {
-		String sql = "SELECT * from restaurant r join address a on r.ADDRESS_ID = a.ID";
+		String sql = "select * from restaurant r join address a on r.address_id = a.id";
 		
 		List<RestaurantWithAddress> restaurants = new ArrayList<>();
 		try (Connection conn = dataSource.getConnection();
@@ -72,13 +72,16 @@ public class JdbcRestaurantDao extends GenericJdbcDao implements RestaurantDao {
 					r.setId(rs.getInt(1));
 					r.setName(rs.getString(2));
 					r.setAddressId(rs.getInt(3));
+					
 					Address a = new Address();
-					a.setId(rs.getInt(1));
-					a.setCity(rs.getString(2));
-					a.setCountry(rs.getString(3));
-					a.setStreet(rs.getString(4));
-					a.setZipCode(rs.getString(5));
+					a.setId(rs.getInt(4));
+					a.setCity(rs.getString(5));
+					a.setCountry(rs.getString(6));
+					a.setStreet(rs.getString(7));
+					a.setZipCode(rs.getString(8));
+					
 					RestaurantWithAddress rwa = new RestaurantWithAddress(r, a);
+					
 					restaurants.add(rwa);
 				}
 			

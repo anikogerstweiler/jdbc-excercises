@@ -27,8 +27,4 @@ public class JdbcMenuDao extends GenericJdbcDao implements MenuDao {
 			e.printStackTrace();
 		}
 	}
-
-	
-	 
-	
 }

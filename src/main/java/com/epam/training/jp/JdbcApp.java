@@ -49,6 +49,8 @@ public class JdbcApp {
 		
 		List<Food> foods = createFoods();
 		restaurantService.save(foods);
+		
+		System.out.println("Foods: " + restaurantService.getFoods());
 
 		System.out.println("Restaurants: " + restaurantService.getAllRestaurantsWithAddress());
 		
@@ -69,7 +71,7 @@ public class JdbcApp {
 		
 		Food f2 = new Food();
 		f2.setCalories(10);
-		f2.setName("tofu");
+		f2.setName("szilvasgomboc");
 		f2.setPrice(1000);
 		f2.setVegan(true);
 		foods.add(f2);

@@ -28,7 +28,6 @@ public class RestaurantService {
 		this.menuDao = menuDao;
 		this.menuFoodDao = menuFoodDao;
 	}
-		
 
 	public void save(Address address) {
 		addressDao.save(address);
@@ -38,40 +37,28 @@ public class RestaurantService {
 		return restaurantDao.getFoodsAvailable(date, restaurantName);
 	}
 
-
 	public void updateFoodPriceByName(String name, int newPrice) {
 		foodDao.updateFoodPriceByName(name, newPrice);
 	}
 
-
 	public Food findFoodByName(String name) {
 		return foodDao.findFoodByName(name);
 	}
-
 
 	public void removeMenu(int id) {
 		menuFoodDao.removeMenuFoods(id);
 		menuDao.removeMenu(id);
 	}
 
-
 	public List<RestaurantWithAddress> getAllRestaurantsWithAddress() {
 		return restaurantDao.getAllRestaurantsWithAddress();
 	}
 
-
 	public void save(List<Food> foods) {
 		foodDao.save(foods);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
-	
+	public List<Food> getFoods() {
+		return foodDao.getFoods();
+	}
 }

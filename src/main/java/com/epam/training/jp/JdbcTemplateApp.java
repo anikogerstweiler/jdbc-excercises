@@ -6,7 +6,6 @@ import com.epam.training.jp.jdbc.excercises.spring.SpringConfigurationDataSource
 import com.epam.training.jp.jdbc.excercises.spring.SpringConfigurationJdbcTemplateDao;
 import com.epam.training.jp.jdbc.excercises.spring.SpringConfigurationService;
 
-
 public class JdbcTemplateApp extends JdbcApp {
 
 	public static void main(String[] args) {

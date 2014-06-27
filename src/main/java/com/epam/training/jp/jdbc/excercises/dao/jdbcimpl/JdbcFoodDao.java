@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -64,8 +66,6 @@ public class JdbcFoodDao extends GenericJdbcDao implements FoodDao {
 
 	@Override
 	public void save(List<Food> foods) {
-		// TODO: This one will be the homework!!!
-		// implement with batch
 		String sql = "INSERT INTO food (calories, isvegan, name, price) VALUES (?, ?, ?, ?)";
 		try (Connection conn = dataSource.getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -90,5 +90,32 @@ public class JdbcFoodDao extends GenericJdbcDao implements FoodDao {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public List<Food> getFoods() {
+		String sql = "Select * from FOOD";
+		List<Food> foods = new ArrayList<>();
+		try (Connection conn = dataSource.getConnection();
+			Statement statement = conn.createStatement()) {
+			
+			ResultSet rs = statement.executeQuery(sql);
+			
+			while (rs.next()) {
+				Food food = new Food();
+				food.setId(rs.getInt(1));
+				food.setCalories(rs.getInt(1));
+				food.setVegan(rs.getBoolean(3));
+				food.setName(rs.getString(4));
+				food.setPrice(rs.getInt(5));
+				
+				foods.add(food);
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return foods;
 	}
 }
